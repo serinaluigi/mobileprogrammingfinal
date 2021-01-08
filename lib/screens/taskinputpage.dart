@@ -16,15 +16,17 @@ class _TaskInputPageState extends State<TaskInputPage> {
 
   int _taskId = 0;
   String _taskTitle = "";
-  int _taskmileage = 0;
-  int _tasknextinterval = 0;
-  int _taskpartcost = 0;
+  String _taskmileage = "";
+  String _tasknextinterval = "";
+  String _taskpartcost = "";
+  String _tasklabor = "";
   String _taskdetails = "";
 
   FocusNode _titleFocus;
   FocusNode _mileageFocus;
   FocusNode _nextintervalFocus;
   FocusNode _partcostFocus;
+  FocusNode _laborFocus;
   FocusNode _detailsFocus;
 
 
@@ -41,6 +43,7 @@ class _TaskInputPageState extends State<TaskInputPage> {
       _taskmileage = widget.task.mileage;
       _tasknextinterval = widget.task.nextinterval;
       _taskpartcost = widget.task.partcost;
+      _tasklabor = widget.task.labor;
       _taskdetails = widget.task.details;
 
     }
@@ -49,6 +52,7 @@ class _TaskInputPageState extends State<TaskInputPage> {
     _mileageFocus = FocusNode();
     _nextintervalFocus = FocusNode();
     _partcostFocus = FocusNode();
+    _laborFocus = FocusNode();
     _detailsFocus = FocusNode();
 
 
@@ -133,13 +137,15 @@ class _TaskInputPageState extends State<TaskInputPage> {
                   TextField(
                     focusNode: _mileageFocus,
                     onSubmitted: (value) {
-                      if(value != 0){
+                      if(value != ""){
                         if(_taskId != 0){
-                          _dbHelper.updateMileage(_taskId, 0);
+                          _dbHelper.updateMileage(_taskId, value);
+                          _taskmileage = value;
                         }
                       }
 
                     },
+                    controller: TextEditingController()..text = _taskmileage,
                     decoration: InputDecoration(
                         hintText: " Mileage",
                         border: InputBorder.none,
@@ -149,6 +155,17 @@ class _TaskInputPageState extends State<TaskInputPage> {
                     ),
                   ),
                   TextField(
+                    focusNode: _nextintervalFocus,
+                    onSubmitted: (value) {
+                      if(value != ""){
+                        if(_taskId != 0){
+                          _dbHelper.updateNextInterval(_taskId, value);
+                          _tasknextinterval = value;
+                        }
+                      }
+
+                    },
+                    controller: TextEditingController()..text = _tasknextinterval,
                     decoration: InputDecoration(
                         hintText: " Next Maintenance Interval",
                         border: InputBorder.none,
@@ -158,6 +175,17 @@ class _TaskInputPageState extends State<TaskInputPage> {
                     ),
                   ),
                   TextField(
+                    focusNode: _partcostFocus,
+                    onSubmitted: (value) {
+                      if(value != ""){
+                        if(_taskId != 0){
+                          _dbHelper.updatePartCost(_taskId, value);
+                          _taskpartcost = value;
+                        }
+                      }
+
+                    },
+                    controller: TextEditingController()..text = _taskpartcost,
                     decoration: InputDecoration(
                         hintText: " Part Cost",
                         border: InputBorder.none,
@@ -167,6 +195,17 @@ class _TaskInputPageState extends State<TaskInputPage> {
                     ),
                   ),
                   TextField(
+                    focusNode: _laborFocus,
+                    onSubmitted: (value) {
+                      if(value != ""){
+                        if(_taskId != 0){
+                          _dbHelper.updateLabor(_taskId, value);
+                          _tasklabor = value;
+                        }
+                      }
+
+                    },
+                    controller: TextEditingController()..text = _tasklabor,
                     decoration: InputDecoration(
                         hintText: " Labor Cost",
                         border: InputBorder.none,
@@ -176,6 +215,17 @@ class _TaskInputPageState extends State<TaskInputPage> {
                     ),
                   ),
                   TextField(
+                    focusNode: _detailsFocus,
+                    onSubmitted: (value) {
+                      if(value != ""){
+                        if(_taskId != 0){
+                          _dbHelper.updateDetails(_taskId, value);
+                          _taskdetails = value;
+                        }
+                      }
+
+                    },
+                    controller: TextEditingController()..text = _taskdetails,
                     decoration: InputDecoration(
                         hintText: " Additional Details",
                         border: InputBorder.none,
@@ -215,13 +265,11 @@ class _TaskInputPageState extends State<TaskInputPage> {
                 bottom: 24.0,
                 right: 100.0,
                 child: GestureDetector(
-                  onTap: (){
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TaskInputPage()
-                      ),
-                    );
+                  onTap: () async{
+                    if(_taskId !=0){
+                      await _dbHelper.deleteTask(_taskId);
+                      Navigator.pop(context);
+                    }
                   },
                   child: Container(
                       decoration: BoxDecoration(

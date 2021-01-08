@@ -3,10 +3,10 @@
 class Task{
   final int id;
   final String title;
-  final int mileage;
-  final int nextinterval;
-  final int partcost;
-  final int labor;
+  final String mileage;
+  final String nextinterval;
+  final String partcost;
+  final String labor;
   final String details;
   Task({this.id, this.title, this.mileage, this.nextinterval, this.partcost, this.labor, this.details});
 

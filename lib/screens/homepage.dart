@@ -52,7 +52,7 @@ class _HomepageState extends State<Homepage> {
                                 },
                                 child: TaskCardWidget(
                                   title: snapshot.data[index].title,
-                                  //desc: snapshot.data[index].mileage,
+                                  desc: snapshot.data[index].mileage,
                                 ),
                               );
                               },

@@ -10,7 +10,7 @@ class DatabaseHelper {
         join(await getDatabasesPath(), 'todo.db'),
       onCreate: (db, version) {
         return db.execute(
-          "CREATE TABLE tasks(id INTEGER PRIMARY KEY, title TEXT, mileage INTEGER, nextinterval INTEGER, partcost INTEGER, labor INTEGER, details TEXT)",
+          "CREATE TABLE tasks(id INTEGER PRIMARY KEY, title TEXT, mileage TEXT, nextinterval TEXT, partcost TEXT, labor TEXT, details TEXT)",
         );
       },
       version: 1,
@@ -33,22 +33,22 @@ class DatabaseHelper {
     await _db.rawUpdate("UPDATE tasks SET title = '$title' WHERE id = '$id'");
   }
 
-  Future<void> updateMileage(int id, int mileage) async {
+  Future<void> updateMileage(int id, String mileage) async {
     Database _db = await database();
     await _db.rawUpdate("UPDATE tasks SET mileage = '$mileage' WHERE id = '$id'");
   }
 
-  Future<void> updateNextInterval(int id, int nextinterval) async {
+  Future<void> updateNextInterval(int id, String nextinterval) async {
     Database _db = await database();
     await _db.rawUpdate("UPDATE tasks SET nextinterval = '$nextinterval' WHERE id = '$id'");
   }
 
-  Future<void> updatePartCost(int id, int partcost) async {
+  Future<void> updatePartCost(int id, String partcost) async {
     Database _db = await database();
     await _db.rawUpdate("UPDATE tasks SET partcost = '$partcost' WHERE id = '$id'");
   }
 
-  Future<void> updateLabor(int id, int labor) async {
+  Future<void> updateLabor(int id, String labor) async {
     Database _db = await database();
     await _db.rawUpdate("UPDATE tasks SET labor = '$labor' WHERE id = '$id'");
   }
@@ -56,6 +56,11 @@ class DatabaseHelper {
   Future<void> updateDetails(int id, String details) async {
     Database _db = await database();
     await _db.rawUpdate("UPDATE tasks SET details = '$details' WHERE id = '$id'");
+  }
+
+  Future<void> deleteTask(int id) async {
+    Database _db = await database();
+    await _db.rawDelete("DELETE FROM tasks WHERE id = '$id'");
   }
 
 

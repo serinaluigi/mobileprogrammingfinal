@@ -12,7 +12,7 @@ class TitleWidget extends StatelessWidget {
 
 class TaskCardWidget extends StatelessWidget {
   final String title;
-  final int desc;
+  final String desc;
 
   TaskCardWidget({this.title, this.desc});
 
