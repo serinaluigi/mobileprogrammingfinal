@@ -63,7 +63,7 @@ class DatabaseHelper {
     await _db.rawDelete("DELETE FROM tasks WHERE id = '$id'");
   }
 
-
+  // add
   Future<List<Task>> getTasks() async{
     Database _db = await database();
     List<Map<String, dynamic>> taskMap = await _db.query('tasks');
