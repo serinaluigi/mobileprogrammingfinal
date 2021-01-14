@@ -72,4 +72,10 @@ class DatabaseHelper {
     });
   }
 
+  Future<List<Task>> getTask(String keyword) async{
+    Database _db = await database();
+    List<Map<String, dynamic>> taskMap = await _db.query('tasks', where: 'title LIKE ?', whereArgs: ['%$keyword']);
+
+  }
+
 }
