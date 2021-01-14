@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_test/database_helper.dart';
-import 'package:flutter_app_test/screens/searchbar.dart';
+import 'package:flutter_app_test/models/task.dart';
 import 'package:flutter_app_test/screens/taskinputpage.dart';
 import 'package:flutter_app_test/screens/widgets.dart';
 
@@ -9,26 +9,57 @@ class Homepage extends StatefulWidget {
 
   @override
   _HomepageState createState() => _HomepageState();
-}
 
+}
 class _HomepageState extends State<Homepage> {
   DatabaseHelper _dbHelper = DatabaseHelper();
+  List<Task> _searchRes = [];
+  List<Task> _taskDetails = [];
+
+  Future<Null> getTasks() async {
+
+
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    print(_dbHelper.getTasks());
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: SafeArea(
-
         child: Container(
           width: double.infinity,
           padding: EdgeInsets.all(24.0),
           child: Stack(
-            children: [
+            children:[
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
+                children:  <Widget>[
                   TitleWidget(),
-                  SearchBarWidget(),
+                  // SearchBarWidget(),
+                  new Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(20.0)
+                        ),
+                      child: TextField(
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: ' Search',
+                            hintStyle: TextStyle(fontSize: 20.0, color: Colors.grey),
+                          ),
+                        onSubmitted: (value) async{
+                            SearchSubmitted(value);
+                        },
+                      ),
+
+                  ),
                   Expanded(
                     child: FutureBuilder(
                       initialData: [],
@@ -95,4 +126,22 @@ class _HomepageState extends State<Homepage> {
       )
     );
   }
+
+  SearchSubmitted(String keyword) async{
+
+    print(_searchRes.length);
+
+    _searchRes.clear();
+    if(keyword.isEmpty){
+      setState(() {});
+      return;
+    }
+
+    _taskDetails.forEach((tasks) {
+
+    });
+
+    setState(() {});
+  }
+
 }

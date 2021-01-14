@@ -72,10 +72,14 @@ class DatabaseHelper {
     });
   }
 
+  // Get the records
   Future<List<Task>> getTask(String keyword) async{
     Database _db = await database();
-    List<Map<String, dynamic>> taskMap = await _db.query('tasks', where: 'title LIKE ?', whereArgs: ['%$keyword']);
-
+    List<Map<String,dynamic>> list = await _db.rawQuery('SELECT * FROM tasks WHERE title = "$keyword"');
+    // print(list);
+    print(list[0]['id']);
+    return List.generate(list.length, (index){
+      return Task(id: list[index]['id'],title: list[index]['title'],mileage: list[index]['mileage'],nextinterval: list[index]['nextinterval'],partcost: list[index]['partcost'],labor: list[index]['labor'],details: list[index]['details']);
+    });
   }
-
 }
