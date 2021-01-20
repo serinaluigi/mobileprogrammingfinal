@@ -16,6 +16,8 @@ dependencies:
 
   cupertino_icons: ^1.0.0
   google_fonts: ^1.1.1
+  http: ^0.12.2
+  fluttertoast: ^7.1.6
 
   sqflite:
   path:

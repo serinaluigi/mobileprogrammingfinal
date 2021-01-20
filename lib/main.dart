@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app_test/screens/homepage.dart';
+import 'package:flutter_app_test/screens/login.dart';
 import 'package:google_fonts/google_fonts.dart';
+//import 'package:flutter_app_test/screens/signup.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: Homepage(),
+      home: MyHomePage(),
     );
   }
 }
+
